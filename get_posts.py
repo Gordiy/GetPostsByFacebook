@@ -1,6 +1,7 @@
 import requests
 import json
 import urllib
+import urllib.request
 from pyquery import PyQuery as pq
 import argparse
 import facebook
@@ -36,19 +37,19 @@ def login(session):
 
 def main():
 
-    url = 'https://graph.facebook.com/v2.3/me?access_token=EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
-    facebook_api_key = 'EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
+    url = 'https://graph.facebook.com/v2.3/me?access_token=EAACEdEose0cBAAQO7Do6L0f6FjVkPDZBIDYWqkeFgctZBaYDKO7tcXbrMSI9Wix3BwJvLKZAkKBDW6Vtxt62DQKbPJpBQPmChmdqogM3gKk9TXUNYwPzv2gwZBsNGsu5pBAe9R83e92FJ91TSPWOK9HefqvkrMrmyOmZAD0LwZAO7l0z63ekBx3pjLWtvnUtnBIQPNCBCFc8cZCjT30k61FZBtqbBKcp2V8ZD'
+    #facebook_api_key = 'EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
     request = requests.Request(url)
     #request.add.headers('access_token', facebook_api_key)
-    request = urllib.request.urlopen(url)
+    req = urllib.request.urlopen(url)#Відкриває урл з токеном получає метод
     #request = request.open(url)
-    response = requests.urlopen(request)
+    response = requests.urlopen(req)
     encoding = response.headers.get_content_charset()
     if encoding is None:
         encoding = 'utf-8'
     global r
-    r = request.read()
-    data = json.loads(request.read().decode(encoding))
+    r = req.read()
+    data = json.loads(req.read().decode(encoding))
     with open('JSON.json', 'w') as file:
         json.dump(data)
     return data, r
