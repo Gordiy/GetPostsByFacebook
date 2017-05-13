@@ -32,6 +32,21 @@ def main():
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description = 'Login to Facebook')
+    parser = argparse.ArgumentParser(description = 'Login to Facebook')
     parser.add_argument('email', help = 'Email address')
-    parser.add_argument
+    parser.add_argument('password', help = 'Login password')
+
+    args = parser.parse_args()
+
+    session = requests.session()
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0'
+    })
+
+    fb_dtsg, user_id, xs = login(session, args.email, args.password)
+
+    if user_id:
+        print('{0}:{1}:{2}'.format(fb_dtsg, user_id, xs))
+
+    else:
+        print 'Error!!! Login failed.'
