@@ -2,11 +2,12 @@ import requests
 import json
 from pyquery import PyQuery as pq
 import argparse
+import facebook
 from settings import USER_PASSWORD
 from settings import USER_LOGIN
 from settings import USER_ID
 
-def login(session, email, password):
+def login(session):
 #Вказуємо домашню сторінку Facebook's і завантажуємо Facebook's cookies
 
     response = session.post('https://m.facebook.com')
@@ -15,22 +16,37 @@ def login(session, email, password):
         'pass': USER_PASSWORD
     }, allow_redirects=False)
 #Якщо логін є вірним - то вхід відбудеться
+    text = response.text
+    file = open('Response.html', 'w')
+    file.write(text)
+    file.close()
+
 
     if 'c_user' in response.cookies:
         # Робимо запит на головну сторінку і отримуємо fb_dtsg token
 
         homepage_resp = session.get('https://m.facebook.com/home.php')
-        dom = pyquery.PyQuery(homepage_resp.text.encode('utf8'))
+        dom = pq(homepage_resp.text.encode('utf8'))
         fb_dtsg = dom('input[name="fb_dtsg"]').val()
 
         return fb_dtsg, response.cookies['c_user'], response.cookies['xs']
     else:
         return False
 
-def main():
-    pass
+def main(data):
 
+    url = 'https://graph.facebook.com/v2.9/me?fields=feed{likes{link,name}}'
+    facebook_api_key = 'EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
+    request = requests.Requests(url)
+    request.add.header('access_token', facebook_api_key)
+    response = requests.urlopen(request)
+    encoding = response.headers.get_content_charset()
+    if encoding is None:
+        encoding = 'utf-8'
 
+    data = json.loads(request.read().decode(encoding))
+    with open('JSON.json', 'w') as file:
+        json.dump(data)
 
 if __name__ == '__main__':
     session = requests.session()
