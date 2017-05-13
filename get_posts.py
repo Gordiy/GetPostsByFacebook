@@ -8,10 +8,11 @@ from settings import USER_ID
 
 def login(session, email, password):
 #Вказуємо домашню сторінку Facebook's і завантажуємо Facebook's cookies
+
     response = session.post('https://m.facebook.com')
     response = session.post('https://m.facebook.com/login.php', data={
         'email': USER_LOGIN,
-        'password': USER_PASSWORD
+        'pass': USER_PASSWORD
     }, allow_redirects=False)
 #Якщо логін є вірним - то вхід відбудеться
 
@@ -32,10 +33,6 @@ def main():
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'Login to Facebook')
-    parser.add_argument('email', help = 'Email address')
-    parser.add_argument('password', help = 'Login password')
-
     args = parser.parse_args()
 
     session = requests.session()

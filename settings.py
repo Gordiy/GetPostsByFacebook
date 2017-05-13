@@ -1,3 +1,3 @@
-USER_LOGIN = input('Login : ')
-USER_PASSWORD = input('Password : ')
-USER_ID = input('ID  : ')
+USER_LOGIN = 'Your Login : '
+USER_PASSWORD = 'Your Password : '
+USER_ID = 'Your ID  : '
