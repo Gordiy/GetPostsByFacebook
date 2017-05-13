@@ -36,11 +36,12 @@ def login(session):
 
 def main():
 
-    url = 'https://graph.facebook.com/v2.9/me?fields=feed{likes{link,name}}'
+    url = 'https://graph.facebook.com/v2.3/me?access_token=EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
     facebook_api_key = 'EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
-    request = urllib2.Request(url)
-    request.add.header('access_token', facebook_api_key)
+    request = requests.Request(url)
+    #request.add.headers('access_token', facebook_api_key)
     request = urllib.request.urlopen(url)
+    #request = request.open(url)
     response = requests.urlopen(request)
     encoding = response.headers.get_content_charset()
     if encoding is None:
