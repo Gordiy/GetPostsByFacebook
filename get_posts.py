@@ -1,5 +1,6 @@
 import requests
 import json
+import urllib
 from pyquery import PyQuery as pq
 import argparse
 import facebook
@@ -33,20 +34,30 @@ def login(session):
     else:
         return False
 
-def main(data):
+def main():
 
     url = 'https://graph.facebook.com/v2.9/me?fields=feed{likes{link,name}}'
     facebook_api_key = 'EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
-    request = requests.Requests(url)
+    request = urllib2.Request(url)
     request.add.header('access_token', facebook_api_key)
+    request = urllib.request.urlopen(url)
     response = requests.urlopen(request)
     encoding = response.headers.get_content_charset()
     if encoding is None:
         encoding = 'utf-8'
-
+    global r
+    r = request.read()
     data = json.loads(request.read().decode(encoding))
     with open('JSON.json', 'w') as file:
         json.dump(data)
+    return data, r
+r = 0
+main()
+print (r)
+
+
+
+print(main(request.read()))
 
 if __name__ == '__main__':
     session = requests.session()
