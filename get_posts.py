@@ -11,7 +11,7 @@ def login(session, email, password):
     response = session.post('https://m.facebook.com')
     response = session.post('https://m.facebook.com/login.php', data={
         'email': USER_LOGIN,
-        'pass': USER_PASSWORD
+        'password': USER_PASSWORD
     }, allow_redirects=False)
 #Якщо логін є вірним - то вхід відбудеться
 
@@ -49,4 +49,4 @@ if __name__ == '__main__':
         print('{0}:{1}:{2}'.format(fb_dtsg, user_id, xs))
 
     else:
-        print 'Error!!! Login failed.'
+        print ('Error!!! Login failed.')
