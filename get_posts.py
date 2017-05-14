@@ -2,9 +2,9 @@ import requests
 import json
 import urllib
 import urllib.request
+import facebook
 from pyquery import PyQuery as pq
 import argparse
-import facebook
 from settings import USER_PASSWORD
 from settings import USER_LOGIN
 from settings import USER_ID
@@ -36,10 +36,9 @@ def login(session):
         return False
 
 def main():
-
-    url = 'https://graph.facebook.com/v2.3/me?access_token=EAACEdEose0cBAAQO7Do6L0f6FjVkPDZBIDYWqkeFgctZBaYDKO7tcXbrMSI9Wix3BwJvLKZAkKBDW6Vtxt62DQKbPJpBQPmChmdqogM3gKk9TXUNYwPzv2gwZBsNGsu5pBAe9R83e92FJ91TSPWOK9HefqvkrMrmyOmZAD0LwZAO7l0z63ekBx3pjLWtvnUtnBIQPNCBCFc8cZCjT30k61FZBtqbBKcp2V8ZD'
+    '''url = 'https://graph.facebook.com/v2.9/me?feed=EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD'
     #facebook_api_key = 'EAACEdEose0cBAAVJGMO8OMMWIWyB8YNOTPoK2QsZAA4j9I6GiaTwjekgsxfjd8EIEaZBsFujSJXXfIUFgafBRDAcPzbt9QTvEVm50gujZAtnJzoxd6RVCKAE9Ms0BOc1C3NAN5g8DZBox6uNw1Mh0lDnt785kyPTF2cVZArsWQOuBjR0rdNyq08B3EZB61EuYZD'
-    request = requests.Request(url)
+    req = urllib.request.Request(url)
     #request.add.headers('access_token', facebook_api_key)
     req = urllib.request.urlopen(url)#Відкриває урл з токеном получає метод
     #request = request.open(url)
@@ -51,7 +50,14 @@ def main():
     r = req.read()
     data = json.loads(req.read().decode(encoding))
     with open('JSON.json', 'w') as file:
-        json.dump(data)
+        json.dump(data)'''
+
+    url = 'https://graph.facebook.com/v2.9/me?feed=EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD'
+    accesstoken = "EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD"
+    graph = facebook.GraphAPI(access_token = accesstoken, version=2.9)
+    post = graph.get_object(id='380312659009364')
+    print(post)
+
     return data, r
 r = 0
 main()
