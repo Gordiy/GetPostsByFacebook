@@ -52,7 +52,7 @@ def main(response):
 
     url = 'https://graph.facebook.com/v2.9/1210220782333953?fields=posts'
     response = requests.get(url)
-    posts = response.json()['posts']
+    posts = response.json()[0]['posts']
     resoult = response.text
     response = json.loads(resoult)
     with open('JSON.json', 'w') as file:
