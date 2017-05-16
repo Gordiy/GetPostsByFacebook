@@ -55,13 +55,12 @@ def main(response):
     posts = response.json()[0]['posts']
     resoult = response.text
     response = json.loads(resoult)
-    with open('JSON.json', 'w') as file:
-        json.dump(response, file)
+    resp = requests.put_like(url)
+    count = 12
+    while i < count:
+        i = i + 1
+        story = resp[0]['posts'][i]
     return response
-
-    with open('JSON.json', 'w') as file:
-        json.dump(response, file)
-
 
 if __name__ == '__main__':
     session = requests.session()
