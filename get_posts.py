@@ -35,16 +35,19 @@ def login(session):
     else:
         return False
 
-def main(event):
+def main(posts):
 
-    url = 'https://graph.facebook.com/v2.9/me?feed=EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD'
-    accesstoken = "EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD"
-    graph = facebook.GraphAPI(access_token = accesstoken, version=2.8)
-    post = graph.get_object(id='420040675036562')
-    event = graph.get_object(id='me', fields='feed,context')
-    return event
+    #url = 'https://graph.facebook.com/v2.9/me?feed=EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD'
+    accesstoken = "EAACEdEose0cBANGUSuua7z41QLvR7rSL8j7d8XvhTweA86SFw1LS8gHlZCVHozKSH1RwZBHynRDQdZAaF65U8NkdgupGCNy99DKNDifNagtDefaqRXDu1WvxwmglZAzfmjozIo45wLqt1qTI4cEt1BjXjPXdTATz6lXxD0slRsTcEYT1vlt56JN3iZAsNO2EZD"
+    graph = facebook.GraphAPI(accesstoken)
 
-print (main(event=0))
+    #event = graph.get_object(id='me', fields='feed,context')
+    #event = graph.get_object(user['id'])
+    #user = graph.get_object('1210220782333953')
+    posts = graph.get_all_connections(id='1210220782333953', connection_name='likes')
+    return posts
+
+print (main(posts=0))
 
 
 
