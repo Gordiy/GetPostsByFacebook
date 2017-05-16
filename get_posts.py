@@ -35,8 +35,11 @@ def login(session):
     else:
         return False
 
+def write_json():
+    with open('JSON.json', 'w') as file:
+        json.dump(data, file)
 
-def main(story):
+def main():
     '''#url = 'https://graph.facebook.com/v2.9/me?feed=EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD'
     accesstoken = "EAACEdEose0cBANGUSuua7z41QLvR7rSL8j7d8XvhTweA86SFw1LS8gHlZCVHozKSH1RwZBHynRDQdZAaF65U8NkdgupGCNy99DKNDifNagtDefaqRXDu1WvxwmglZAzfmjozIo45wLqt1qTI4cEt1BjXjPXdTATz6lXxD0slRsTcEYT1vlt56JN3iZAsNO2EZD"
     graph = facebook.GraphAPI(accesstoken, version='2.9')
@@ -53,19 +56,11 @@ def main(story):
     url = 'https://graph.facebook.com/v2.9/1210220782333953?fields=posts'
     response = requests.get(url)
     posts = response.json()[0]['posts']
-    resoult = response.text
-    response = json.loads(resoult)
-    resp = requests.put_like(url)
     count = 12
     while i < count:
         i = i + 1
         story = resp[0]['posts'][i]['story']
-    return story
-
-def write_json():
-    jump_niga = main(story)
-    with open('JSON.json', 'w') as file:
-        json.dump(jump_niga, file)
+        write_json(story.json)
 
 if __name__ == '__main__':
     session = requests.session()
