@@ -35,20 +35,32 @@ def login(session):
     else:
         return False
 
-def main(posts):
 
-    #url = 'https://graph.facebook.com/v2.9/me?feed=EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD'
+def main(response):
+    '''#url = 'https://graph.facebook.com/v2.9/me?feed=EAACEdEose0cBANgCz3AAdxHBtMvSCIUwok3P5kq89HZAHlWdQzho2ZBEYGZAj3SYAa89AEtUCZBHFYZCIbCCxT9Dwv9bc3DW7X0fEXnZBIHRgpZCslJnZA5on07aGzADUtHkXDPL6pxoI5r4XRtpZA5ZBUQbjLsZAlU1gj9PxcZAsWKt9ClsXhUMa2MTDGIcULflUufJJ2Vu3pErOzMY9TkApTDcOrZBfo0ZAnkdgZD'
     accesstoken = "EAACEdEose0cBANGUSuua7z41QLvR7rSL8j7d8XvhTweA86SFw1LS8gHlZCVHozKSH1RwZBHynRDQdZAaF65U8NkdgupGCNy99DKNDifNagtDefaqRXDu1WvxwmglZAzfmjozIo45wLqt1qTI4cEt1BjXjPXdTATz6lXxD0slRsTcEYT1vlt56JN3iZAsNO2EZD"
-    graph = facebook.GraphAPI(accesstoken)
+    graph = facebook.GraphAPI(accesstoken, version='2.9')
 
     #event = graph.get_object(id='me', fields='feed,context')
     #event = graph.get_object(user['id'])
     #user = graph.get_object('1210220782333953')
     posts = graph.get_all_connections(id='1210220782333953', connection_name='likes')
-    return posts
+    response = json.loads(posts)
+    with open("JSON.json", 'w') as file:
+        json.dump(posts, file)'''
 
-print (main(posts=0))
 
+    url = 'https://graph.facebook.com/v2.9/1210220782333953?fields=posts'
+    response = requests.get(url)
+    posts = response.json()['posts']
+    resoult = response.text
+    response = json.loads(resoult)
+    with open('JSON.json', 'w') as file:
+        json.dump(response, file)
+    return response
+
+    with open('JSON.json', 'w') as file:
+        json.dump(response, file)
 
 
 if __name__ == '__main__':
